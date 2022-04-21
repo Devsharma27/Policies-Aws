@@ -1,0 +1,50 @@
+{
+    "version": "2012-10-17",
+    "statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "arn:aws:ec2:us-east-1::image/ami-03ededff12e34e59e",
+            "Condition":{
+                "ForAllValues:StringLike":{
+                    "ec2:InstanceType":[
+                        "t3.nano"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ebs:*",
+            "Resource": "*",
+            "Condition": {
+                "NumericEquals": {
+                    "ebs:VolumeSize": "15"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "rds-db:connect"
+            ],
+            "Resource": [
+                "arn:aws:rds-db:us-east-1:128680359488:dbuser:db_identifier/db-user-name"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:DeleteObject",
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::bucket_name/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::bucket_name"
+        }
+    ]
+}
